@@ -6,6 +6,12 @@
 
 "use strict";
 
+let myContact = 
+{
+  "fullName":"Brett Tindall",
+  "contactNumber":"9055551122",
+  "emailAddress":"Brett.Tindall@dcmail.ca"
+}
 
 (function()
 {
@@ -101,37 +107,14 @@
 
         let sendButton = document.getElementById("sendButton");
         sendButton.addEventListener("click", function(event){
-            //event.preventDefault();
+            event.preventDefault();
 
             let contact = new Contact(fullName.value, contactNumber.value, emailAddress.value);
             
-            console.log(contact.toJSON());
+            console.log(contact.toString());
 
-            localStorage.setItem((localStorage.length + 1).toString(), contact.serialize());        });
-    }
-
-    function displayContactList()
-    {
-      if(localStorage.length > 0)
-      {
-        let contactList = document.getElementById("contactList");
-        let data = "";
-        for (let index = 1; index < localStorage.length + 1; index++) 
-        {
-          
-          let serializedContact = localStorage.getItem(index.toString());
-          let contact = new Contact();
-          contact.deserialize(serializedContact);
-          
-          data += `<tr>
-          <th scope="row">${index}</th>
-          <td>${contact.fullName}</td>
-          <td>${contact.contactNumber}</td>
-          <td>${contact.emailAddress}</td>
-        </tr>`
-        }
-        contactList.innerHTML = data;
-      }
+            localStorage.setItem(localStorage.length.toString(), contact);
+        });
     }
 
     function Start()
@@ -154,9 +137,6 @@
             break;
           case "Contact":
               displayContact();
-            break;
-          case "Contact-List":
-              displayContactList();
             break;
         }
         

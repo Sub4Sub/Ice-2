@@ -6,6 +6,46 @@
 
 "use strict";
 
+class Contact{
+  // Constructor
+  constructor(fullName, contactName, emailAddress)
+  {
+    this.m_fullName = fullName;
+    this.m_contactName= contactName;
+    this.m_emailAddress = emailAddress;
+  }
+
+  // Getters and Setters
+  get fullName()
+  {
+    return this.m_fullName;
+  }
+
+  set fullName(full_name)
+  {
+    this.m_fullName = full_name;
+  }
+
+  get contactName()
+  {
+    return this.m_contactName;
+  }
+
+  set contactName(contact_name)
+  {
+    this.m_contactName = contact_name;
+  }
+
+  get emailAddress()
+  {
+    return this.m_emailAddress;
+  }
+
+  set emailAddress(email_address)
+  {
+    this.m_emailAddress = email_address;
+  }
+}
 
 (function()
 {
@@ -103,35 +143,10 @@
         sendButton.addEventListener("click", function(event){
             //event.preventDefault();
 
-            let contact = new Contact(fullName.value, contactNumber.value, emailAddress.value);
+            let contact = new Contact(fullName, contactNumber, emailAddress);
             
-            console.log(contact.toJSON());
-
-            localStorage.setItem((localStorage.length + 1).toString(), contact.serialize());        });
-    }
-
-    function displayContactList()
-    {
-      if(localStorage.length > 0)
-      {
-        let contactList = document.getElementById("contactList");
-        let data = "";
-        for (let index = 1; index < localStorage.length + 1; index++) 
-        {
-          
-          let serializedContact = localStorage.getItem(index.toString());
-          let contact = new Contact();
-          contact.deserialize(serializedContact);
-          
-          data += `<tr>
-          <th scope="row">${index}</th>
-          <td>${contact.fullName}</td>
-          <td>${contact.contactNumber}</td>
-          <td>${contact.emailAddress}</td>
-        </tr>`
-        }
-        contactList.innerHTML = data;
-      }
+            console.log(contact);
+        });
     }
 
     function Start()
@@ -154,9 +169,6 @@
             break;
           case "Contact":
               displayContact();
-            break;
-          case "Contact-List":
-              displayContactList();
             break;
         }
         
